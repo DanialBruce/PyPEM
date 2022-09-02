@@ -34,7 +34,7 @@ def start():
   input("Press Enter to exit the program . . .")
 
     
-
+# This functions gets the PEM data and stores it in the same. 
 def getPEMFile(hostname, port, nl_format = False):
 
   dst = (hostname, port)
@@ -50,41 +50,27 @@ def getPEMFile(hostname, port, nl_format = False):
   pemFile = ''
 
   if nl_format:
-    num = 1
     for cert in peerCertChain: 
-      if num != len(peerCertChain): #If it is the last item in the list
         pemFile += newLineFormatter(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8"))
-        num += 1
-      else:
-        pemFile += newLineFormatter(crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8"), True)
     return pemFile
-  
-  
+
   for cert in peerCertChain:
       pemFile += crypto.dump_certificate(crypto.FILETYPE_PEM, cert).decode("utf-8")
 
   return pemFile
 
 
-def newLineFormatter(string = '', last_item = False):
+def newLineFormatter(string = ''):
 
-  final = ''
+  result = ''
   strLines = string.split('\n')
 
-  num = 1
-  if last == False:
-    for line in strLines:
-      num += 1
-      final += '\"' + line +'\\n\"' + '\n'
-  else:
-    for line in strLines:
-      if num != len(strLines):  #If it is the last item in the list
-        final += '\"' + line +'\\n\"' + '\n'
-        num += 1
-      else:
-        final += '\"' + line +'\"'  + '\n'
+  for line in strLines:
+    if line == '':
+      continue
+    result += '\"' + line +'\\n\"' + '\n'
   
-  return final
+  return result
 
 
 
