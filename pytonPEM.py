@@ -4,7 +4,9 @@
 from OpenSSL import SSL, crypto
 import socket
 
+##format = False
 def start():
+  format = False
   hostname = input("the remost host domain name or ip address: ")
   while True:
     try:
